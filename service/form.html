@@ -13,7 +13,7 @@
 		.container {
 			max-width: 70%;
 			margin: auto;
-			padding: 20px;
+			padding: 7px 20px;
 			background-color: #fff;
 			box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
 			border-radius: 5px;
@@ -34,7 +34,7 @@
 		}
 		h1 {
 			margin: 0;
-			padding: 10px;
+			padding: 0 10px;
 			text-align: center;
 			color: #333;
 		}
@@ -53,19 +53,7 @@
 			box-sizing: border-box;
 			width: 200px;
 		}
-		button[type="submit"] {
-			background-color: #007bff;
-			color: #fff;
-			border: none;
-			border-radius: 5px;
-			padding: 10px 20px;
-			font-size: 16px;
-			cursor: pointer;
-			transition: background-color 0.3s;
-		}
-		button[type="submit"]:hover {
-			background-color: #0069d9;
-		}
+		
 		.submit{
 			width:7rem;
 			height: 3rem;
@@ -73,6 +61,12 @@
 			color: white;
 			border-radius: 15px;
 			
+		}
+		.result{
+			text-align: center;
+			padding:12px 0;
+			color: white;
+			font-weight: bold;
 		}
 	</style>
 </head>
@@ -182,6 +176,16 @@
 				<label for="Prothrombin">Prothrombin:</label>
 				<input value="15.23" type="number" name="Prothrombin" step="0.01" required>
 				</div>
+				<div class="col">  
+					<label for="Edema">Choose Model</label>
+					<select name="Model" required>
+						<option value="ada-best">AdaBoost-Best Features</option>
+						<option value="ada-full">AdaBoost-All Feautures</option>
+						<option value="bag-best">Bagging- All Features</option>
+						<option value="rf">Random Forest</option>
+						<option value="svm">SVM</option>
+					</select>
+				</div>
 			</div>
 			<div class="row">
 				<input class="submit" type="submit" value="Predict">
@@ -189,7 +193,7 @@
 			</div>
 		</form>
 		
-		<div id="result">
+		<div id="result" class="result">
 	
 		</div>
 	
@@ -207,7 +211,16 @@
 				data: $('#prediction-form').serialize(),
 				success: function(response) {
 					// Display prediction result
-					$('#result').text('The predicted output is ' + response.prediction + '.');
+					$('#result').text(response.message);
+					if(response.prediction==2){
+						$(".result").css("background-color", "green");
+					}
+					else if(response.prediction==3){
+						$(".result").css("background-color", "yellow");
+					}
+					else{
+						$(".result").css("background-color", "red");
+					}
 				},
 				error: function() {
 					alert('Error occurred while making prediction!');
