@@ -61,7 +61,7 @@ def process(form):
 
     features = np.array([n_days,drug,age,sex,ascites,hepatomegaly,spiders,edema,bilirubin,cholesterol,albumin,copper,alk_phos,sgot,tryglicerides,platelets,prothrombin])
 
-    features[8:] = np.log(features[8:])
+    # features[8:] = np.log(features[8:])
     
 
     return features
