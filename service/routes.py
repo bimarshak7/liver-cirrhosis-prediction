@@ -1,13 +1,9 @@
-from flask import Blueprint, request
+from flask import  Blueprint,render_template, request
 import numpy as np
 import joblib
 
 bp = Blueprint('predict_routes', __name__)
 
-
-from flask import Flask, render_template, request
-import joblib
-import numpy as np
 
 # Load the saved model
 scaler = joblib.load('../models/scaler.joblib')
